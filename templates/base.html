@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASTEROIDS</title>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/lib/angular.min.js') }} "></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/lib/angular-ui-router.min.js') }} "></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }} "></script>
+</head>
+<body ng-app="asteroids" ng-controller="score">
+{% raw %}
+
+<ul >
+    <li ng-repeat="(name, score) in scores">
+        {{ name }} = {{ score }}
+    </li>
+</ul>
+
+</body>
+{% endraw %}
+</html>
