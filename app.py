@@ -2,13 +2,9 @@ from __future__ import absolute_import
 import os
 
 from flask import Flask, render_template
-from flask.ext.pymongo import PyMongo
 from api.users import users
 from api.scores import scores
-
-
-
-
+from flask.ext.mongoengine import MongoEngine
 
 app = Flask(__name__)
 app.config.from_pyfile(
@@ -16,7 +12,7 @@ app.config.from_pyfile(
 )
 
 # ext config
-mongo = PyMongo(app)
+db = MongoEngine(app)
 
 # register blueprints
 app.register_blueprint(users)

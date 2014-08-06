@@ -1,8 +1,11 @@
 import json
+from flask import Response
 def jsonable(func):
     def wrapper(*args, **kwargs):
-        value = json.dumps(func(*args, **kwargs))
-        return value
-        # if type(value) == tuple:
-
+        value = func(*args, **kwargs)
+        if type(value) == dict:
+            return json.dumps(value)
+        return Response(json.dumps(value[0]),
+            mimetype="application/json",
+            status=value[1])
     return wrapper
