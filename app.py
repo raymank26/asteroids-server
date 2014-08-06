@@ -18,6 +18,7 @@ db = MongoEngine(app)
 app.register_blueprint(users)
 app.register_blueprint(scores)
 
+
 @app.route("/")
 def base():
     return render_template("base.html")
