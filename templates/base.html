@@ -11,8 +11,8 @@
 {% raw %}
 
 <ul >
-    <li ng-repeat="(name, score) in scores">
-        {{ name }} = {{ score }}
+    <li ng-repeat="score in scores">
+        {{ score.username }} = {{ score.value }}
     </li>
 </ul>
 

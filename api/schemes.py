@@ -16,3 +16,8 @@ user_auth = Schema({
     "username": unicode,
     "password": unicode
 }, required=True)
+
+
+submit_score = Schema({
+    "score": unicode
+    }, required=True)

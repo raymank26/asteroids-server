@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 from flask import Blueprint, request
-from utils import jsonable
+from utils import jsonable, login_required, show_errors
 from .schemes import user_creation, user_auth
 from models import User
 from voluptuous import MultipleInvalid, Invalid
@@ -8,8 +8,6 @@ from voluptuous import MultipleInvalid, Invalid
 users = Blueprint("users", __name__, url_prefix="/users")
 
 
-def show_errors(e):
-    return {"errors": e.error_message, "path": e.path}, 400
 
 
 @users.route('/', methods=['POST'])
@@ -57,3 +55,13 @@ def authenticate():
     return {
         "token": user.auth_token
     }
+
+
+@users.route('/check_auth/', methods=['GET'])
+@jsonable
+@login_required
+def check(user):
+    print user
+    return "ok"
+
+
