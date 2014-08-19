@@ -6,15 +6,31 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/lib/angular.min.js') }} "></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/lib/angular-ui-router.min.js') }} "></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }} "></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }} ">
+    <link href="{{ url_for('static', filename='images/ship.png') }}" rel="shortcut icon" type="image/x-icon" />
 </head>
-<body ng-app="asteroids" ng-controller="score">
 {% raw %}
-
-<ul >
-    <li ng-repeat="score in scores">
-        {{ score.username }} = {{ score.value }}
-    </li>
-</ul>
+<body ng-app="asteroids" ng-controller="score">
+    <div class="container">
+        <div class="table">
+            <div class="header">
+                <h2>Hall of Fame</h2>
+            </div>
+            <table>
+                <tr ng-repeat="score in scores">
+                    <td class="image"><img src="/static/images/ship.png" alt=""></td>
+                    <td>{{ score.username }}</td>
+                    <td class="score">{{ score.value }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="personal">
+        <ul >
+            <li><a href="https://bitbucket.org/raymank26/">bitbucket</a></li> |
+            <li><a href="mailto:Rayman.k26@gmail.com">email</a></li>
+        </ul>
+    </div>
 
 </body>
 {% endraw %}

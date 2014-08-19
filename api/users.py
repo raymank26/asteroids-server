@@ -8,8 +8,6 @@ from voluptuous import MultipleInvalid, Invalid
 users = Blueprint("users", __name__, url_prefix="/users")
 
 
-
-
 @users.route('/', methods=['POST'])
 @jsonable
 def create():
@@ -55,7 +53,6 @@ def authenticate():
     return {
         "token": user.auth_token
     }
-
 
 @users.route('/check_auth/', methods=['GET'])
 @jsonable
