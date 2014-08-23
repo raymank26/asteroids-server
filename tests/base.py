@@ -1,16 +1,19 @@
-import unittest
+from __future__ import absolute_import
 
-from app import app as flask_app, db
+import unittest
+from time import sleep
+import config
+from config.local import MONGODB_SETTINGS
+
+from app import create_app
 class MongoTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.app = flask_app
-        self.app.config['DB'] = "asteroids_test"
+        self.db_name = "asteroids_test"
+        db_settings = MONGODB_SETTINGS.copy()
+        db_settings['DB'] = self.db_name
+        self.app, self.db = create_app({"MONGODB_SETTINGS": db_settings})
         self.client = self.app.test_client()
 
     def tearDown(self):
-        db.connection.drop_database(self.app.config['DB'])
-
-
-if __name__ == "__main__":
-    unittest.main()
+        self.db.connection.drop_database(self.db_name)
