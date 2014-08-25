@@ -21,14 +21,12 @@ def top_ten():
     ])
     res = []
     for score in scores['result']:
-        print score
-        print score['_id']
+        # print score['_id']
         res.append({
             "username": User.objects.get(id=score['_id']).username,
             "value": score['value']
             })
 
-    print score
     return res
 
 

@@ -52,6 +52,7 @@ class UserAuth(MongoTestCase):
         self.client.post("/users/", data={"username": "foobar",
             "password1": "123", "password2": "123"})
 
+    # TODO: add more auth tests
     def test_auth_ok(self):
         response = self.client.put("/users/authenticate",
             data={"username": "foobar", "password": "123"})
