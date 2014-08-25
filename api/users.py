@@ -4,6 +4,7 @@ from utils import jsonable, login_required, show_errors
 from .schemes import user_creation, user_auth
 from models import User
 from voluptuous import MultipleInvalid, Invalid
+from mongoengine import NotUniqueError
 
 users = Blueprint("users", __name__, url_prefix="/users")
 
@@ -12,7 +13,6 @@ users = Blueprint("users", __name__, url_prefix="/users")
 @jsonable
 def create():
     data = request.form.to_dict()
-    print request.form
     try:
         _user = user_creation(data)
         if _user['password1'] != _user['password2']:
@@ -23,9 +23,17 @@ def create():
             ])
     except MultipleInvalid as e:
         return show_errors(e)
+    User.ensure_indexes()
     user = User(username=_user['username'])
     user.set_password(_user['password1'])
-    user.save()
+    try:
+        user.save()
+    except NotUniqueError as e:
+        return {
+            "path": ["username"],
+            "errors": "user with same name exist"
+            }, 400
+
     return {"success": True}
 
 
@@ -36,7 +44,6 @@ def authenticate():
         "non_field_errors": ["Pair user-password doesn't exist"]
     }
     data = request.form.to_dict()
-    print data
     try:
         _user = user_auth(data)
     except MultipleInvalid as e:

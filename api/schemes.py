@@ -1,14 +1,9 @@
-from voluptuous import Schema
-
-
-def is_unicode(x):
-    # print x
-    return x[0].decode('utf-8')
+from voluptuous import Schema, All, Length, Required
 
 user_creation = Schema({
-    "username": unicode,
-    "password1": unicode,
-    "password2": unicode,
+    "username": All(unicode, Length(min=3)),
+    "password1": All(unicode, Length(min=3)),
+    "password2": All(unicode, Length(min=3)),
 }, required=True)
 
 
